@@ -1,52 +1,26 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./Home.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            This is our first Next.js app
-          </h1>
-          <p>
-            Here we are gonna create our Come Alone Reykjavik website. You can start by editing after we create the GitHub Repository
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className={styles.main}>
+      <section
+        className={styles.section}
+        id="events"
+        aria-labelledby="events-heading"
+      >
+        <h1 className={styles.heading} id="events-heading">
+          Events
+        </h1>
+      </section>
+      <section
+        className={styles.section}
+        id="city-stories"
+        aria-labelledby="city-stories-heading"
+      >
+        <h2 className={styles.heading} id="city-stories-heading">
+          City stories
+        </h2>
+      </section>
+    </main>
   );
 }

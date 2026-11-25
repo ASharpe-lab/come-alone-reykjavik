@@ -1,0 +1,73 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 28px clamp(20px, 5vw, 64px) 18px;
+  border-top: 4px solid var(--color-accent);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: minmax(110px, 1fr) minmax(220px, 1.5fr) minmax(220px, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Space Grotesk", var(--font-geist-sans), Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brand img {
+  width: 30px;
+  height: 29px;
+  object-fit: contain;
+}
+
+.tagline {
+  max-width: 300px;
+  font-family: "Tinos", Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px 20px;
+  font-family: "Space Grotesk", var(--font-geist-sans), Arial, sans-serif;
+  font-size: 12px;
+}
+
+.navigation a:hover {
+  color: var(--color-accent);
+}
+
+.footer a:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.copyright {
+  color: var(--color-muted);
+  font-family: "Space Grotesk", var(--font-geist-sans), Arial, sans-serif;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  .main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .navigation {
+    justify-content: flex-start;
+  }
+}

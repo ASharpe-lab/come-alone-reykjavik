@@ -1,3 +1,4 @@
+import Card from "@/components/organisms/Cards/Card";
 import styles from "./Home.module.css";
 
 export default function Home() {
@@ -9,7 +10,8 @@ export default function Home() {
         aria-labelledby="events-heading"
       >
         <h1 className={styles.heading} id="events-heading">
-          Events
+          Events hallo
+
         </h1>
       </section>
       <section
@@ -20,6 +22,9 @@ export default function Home() {
         <h2 className={styles.heading} id="city-stories-heading">
           City stories
         </h2>
+        <Card></Card>
+        <Card></Card>
+        <Card></Card>
       </section>
     </main>
   );

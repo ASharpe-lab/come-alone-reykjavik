@@ -47,11 +47,21 @@
   font-size: 12px;
 }
 
-.navigation a:hover {
+.organizerLink {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+.navigation a:hover,
+.organizerLink:hover {
   color: var(--color-accent);
 }
 
-.footer a:focus-visible {
+.footer a:focus-visible,
+.organizerLink:focus-visible {
   outline-color: var(--color-accent);
 }
 

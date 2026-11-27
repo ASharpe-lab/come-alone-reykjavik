@@ -1,0 +1,180 @@
+.events {
+  --events-background: #d8d0b8;
+
+  display: flow-root;
+  scroll-margin-top: 56px;
+  background: var(--events-background);
+  font-family: var(--font-events-text), var(--font-geist-sans), sans-serif;
+}
+
+.content {
+  container-type: inline-size;
+  width: min(100% - 2 * clamp(20px, 7.7vw, 111px), 1225px);
+  margin-inline: auto;
+  padding-block: clamp(35px, 3.82vw, 55px) clamp(56px, 7.7vw, 111px);
+}
+
+.headingRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30.6%;
+  align-items: end;
+  gap: clamp(18px, 2.5vw, 36px);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-events-marker), cursive;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 32px;
+  height: 4px;
+  background: #4056d6;
+  content: "";
+}
+
+.heading {
+  margin-top: 16px;
+  font-family: var(--font-events-display), Impact, sans-serif;
+  font-size: clamp(43px, 5.76vw, 83px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.0166em;
+  text-transform: uppercase;
+}
+
+.intro {
+  padding-bottom: 5px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.searchStatus {
+  margin-top: 24px;
+}
+
+.scrollerShell {
+  position: relative;
+  margin: calc(clamp(26px, 3.54vw, 51px) - 8px) -12px -12px;
+}
+
+.cardScroller {
+  --card-columns: 4;
+  --column-gap: 16px;
+  --column-width: calc((100cqi - (var(--card-columns) - 1) * var(--column-gap)) / var(--card-columns));
+  max-block-size: calc(var(--column-width) * 0.75 + 282px);
+  overflow: hidden auto;
+  padding: 8px 20px 12px 12px;
+  scroll-behavior: smooth;
+  scroll-padding-block: 8px 12px;
+  scroll-snap-type: y proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink) transparent;
+}
+
+.jumpControls {
+  position: absolute;
+  inset: 0 -8px 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.jumpControls button {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 0;
+  background: var(--events-background);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.cardScroller:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(var(--card-columns), minmax(0, 1fr));
+  gap: 30px var(--column-gap);
+  list-style: none;
+}
+
+.cards > li {
+  --card-tilt: -0.8deg;
+  display: flex;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.cards > li:nth-child(even) {
+  --card-tilt: 0.8deg;
+}
+
+@supports (animation-timeline: view(block)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cards > li {
+      animation: cardScrollReveal auto linear both;
+      animation-timeline: view(block);
+    }
+  }
+}
+
+@keyframes cardScrollReveal {
+  0% {
+    opacity: 0.55;
+    translate: 0 12px;
+  }
+
+  18%,
+  82% {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  100% {
+    opacity: 0.55;
+    translate: 0 -12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cardScroller {
+    --card-columns: 2;
+  }
+}
+
+@media (max-width: 740px) {
+  .headingRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .intro {
+    max-width: 375px;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .cardScroller {
+    --card-columns: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardScroller {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+}

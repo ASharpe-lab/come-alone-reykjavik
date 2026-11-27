@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import VisitorLogin from "@/components/organisms/VisitorLogin/VisitorLogin";
 import styles from "./Footer.module.css";
 
 export type FooterLink = {
@@ -30,6 +31,7 @@ export default function Footer({ links, tagline, copyright }: FooterProps) {
               {link.label}
             </Link>
           ))}
+          <VisitorLogin organizerTrigger={{ className: styles.organizerLink, label: "For organizers" }} />
         </nav>
       </div>
 

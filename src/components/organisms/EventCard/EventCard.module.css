@@ -98,6 +98,7 @@
   line-height: 1.05;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .metadata {
@@ -116,6 +117,12 @@
 
 .metadata img {
   flex: none;
+}
+
+.metadata span,
+.detailsMetadata dd,
+.detailsDescription {
+  overflow-wrap: anywhere;
 }
 
 .tags {
@@ -265,6 +272,12 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.detailsDescription {
+  margin-top: 20px;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 .detailsPrice {

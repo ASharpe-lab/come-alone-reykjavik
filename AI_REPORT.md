@@ -47,3 +47,4 @@ All AI output must be reviewed and verified by a team member.
 | 2026-11-27 | Organizer create-event view | Codex | Connected the My events button to the create-event layout from Figma and kept My events selected in the sidebar. | Pending team review. |
 | 2026-11-27 | Organizer sidebar destinations | Codex | Used the rightmost design for Organization, alongside the Overview and My events designs, and checked navigation between all three. | Pending team review. |
 | 2026-11-27 | Event details pop-ups | Codex | Reused the homepage event dialog for each Organizer Studio event row and populated it with that event’s existing details. | Pending team review. |
+| 2026-11-28 | Create-event pop-up | Codex | Implemented the Figma pop-up with event fields and photo upload, then connected browser-saved events to the homepage cards. | Pending team review. |

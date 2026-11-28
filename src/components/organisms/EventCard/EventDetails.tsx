@@ -11,10 +11,11 @@ type EventDetailsProps = {
     image: string;
     imageAlt?: string;
     dateLabel: string;
-    category: string;
+    category?: string;
     metadata: { label: string; value: string; icon?: string }[];
     tags?: string[];
     price?: string;
+    description?: string;
   };
   triggerClassName?: string;
   children?: ReactNode;
@@ -57,7 +58,7 @@ export default function EventDetails({ event, triggerClassName, children }: Even
         <div className={styles.detailsLayout}>
           <div className={styles.detailsPhoto}>
             <Image src={event.image} alt={event.imageAlt ?? ""} fill sizes="(max-width: 640px) 100vw, 400px" />
-            <p className={styles.detailsCategory}>{event.category}</p>
+            {event.category && <p className={styles.detailsCategory}>{event.category}</p>}
           </div>
           <div className={styles.detailsContent}>
             <p className={styles.detailsDate}>{event.dateLabel}</p>
@@ -73,7 +74,8 @@ export default function EventDetails({ event, triggerClassName, children }: Even
                 </div>
               ))}
             </dl>
-            {event.tags && (
+            {event.description && <p className={styles.detailsDescription}>{event.description}</p>}
+            {event.tags && event.tags.length > 0 && (
               <ul className={styles.tags} aria-label="Event tags">
                 {event.tags.map((tag) => <li key={tag}>{tag}</li>)}
               </ul>

@@ -8,11 +8,12 @@ export type EventCardData = {
   weekday: string;
   schedule: string;
   venue: string;
-  category: string;
+  category?: string;
   tags: string[];
   price: string;
   image: string;
   imageAlt: string;
+  description?: string;
 };
 
 export default function EventCard({ event }: { event: EventCardData }) {
@@ -39,23 +40,25 @@ export default function EventCard({ event }: { event: EventCardData }) {
         >
           <Image src="/featured-events/bookmark.svg" alt="" width={20} height={20} />
         </button>
-        <p className={styles.category}>{event.category}</p>
+        {event.category && <p className={styles.category}>{event.category}</p>}
       </div>
       <div className={styles.content}>
         <h3 className={styles.title}>{event.title}</h3>
         <div className={styles.metadata}>
           <p>
             <Image src="/featured-events/clock.svg" alt="" width={17} height={17} />
-            {event.schedule}
+            <span>{event.schedule}</span>
           </p>
           <p>
             <Image src="/featured-events/location.svg" alt="" width={17} height={17} />
-            {event.venue}
+            <span>{event.venue}</span>
           </p>
         </div>
-        <ul className={styles.tags} aria-label="Event tags">
-          {event.tags.map((tag) => <li key={tag}>{tag}</li>)}
-        </ul>
+        {event.tags.length > 0 && (
+          <ul className={styles.tags} aria-label="Event tags">
+            {event.tags.map((tag) => <li key={tag}>{tag}</li>)}
+          </ul>
+        )}
         <div className={styles.bottom}>
           <p>{event.price}</p>
           <EventDetails event={{
@@ -70,6 +73,7 @@ export default function EventCard({ event }: { event: EventCardData }) {
             ],
             tags: event.tags,
             price: event.price,
+            description: event.description,
           }} />
         </div>
       </div>

@@ -2,6 +2,7 @@ import { Bebas_Neue, Permanent_Marker, Space_Grotesk, Tinos } from "next/font/go
 import EventCard from "@/components/organisms/EventCard/EventCard";
 import EventSearch from "@/components/organisms/EventSearch/EventSearch";
 import EventScroller from "./EventScroller";
+import PublishedEventCards from "./PublishedEventCards";
 import { featuredEvents } from "./featuredEvents";
 import styles from "./EventsSection.module.css";
 
@@ -60,10 +61,11 @@ export default function EventsSection({ filters = {} }: EventsSectionProps) {
           </p>
         </div>
         {q !== undefined && (
-          <p className={styles.searchStatus}>There are no published events to search yet.</p>
+          <p className={styles.searchStatus}>Search and filters aren’t connected yet.</p>
         )}
         <EventScroller>
           <ul className={styles.cards}>
+            <PublishedEventCards />
             {featuredEvents.map((event) => (
               <li key={event.title}>
                 <EventCard event={event} />

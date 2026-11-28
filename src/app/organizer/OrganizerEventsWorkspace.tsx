@@ -1,11 +1,10 @@
-import Link from "next/link";
+import CreateEventPopup from "./CreateEventPopup";
 import OrganizerProgramme from "./OrganizerProgramme";
 import styles from "./OrganizerStudio.module.css";
 
-export default function OrganizerEventsWorkspace({ view }: { view: "events" | "organization" | "create-event" }) {
+export default function OrganizerEventsWorkspace({ view }: { view: "events" | "organization" }) {
   const headingId = `organizer-${view}-heading`;
   const showEvents = view === "events";
-  const createLabel = <>Create an event <span aria-hidden="true">+</span></>;
 
   return (
     <main className={styles.workspace} aria-labelledby={headingId}>
@@ -14,11 +13,7 @@ export default function OrganizerEventsWorkspace({ view }: { view: "events" | "o
           <p className={styles.eyebrow}>Organizer overview</p>
           <h1 id={headingId}>Good morning,<br />Leir Studio.</h1>
         </div>
-        {view === "create-event" ? (
-          <button className={styles.create} type="button" disabled>{createLabel}</button>
-        ) : (
-          <Link href="/organizer/events/new" className={styles.create}>{createLabel}</Link>
-        )}
+        <CreateEventPopup />
       </div>
       <OrganizerProgramme linkToEvents={!showEvents} showEvents={showEvents} />
     </main>

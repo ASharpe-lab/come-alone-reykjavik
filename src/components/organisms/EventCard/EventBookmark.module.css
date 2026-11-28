@@ -1,0 +1,46 @@
+.bookmark {
+  z-index: 2;
+  display: inline-flex;
+}
+
+.bookmark button {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 2px solid var(--color-ink);
+  background: var(--color-paper);
+  box-shadow: 3px 3px 0 var(--color-ink);
+  cursor: pointer;
+}
+
+.bookmark button:is(:hover, [aria-pressed="true"]) {
+  background: var(--color-accent);
+}
+
+.bookmark button[aria-pressed="true"] {
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
+.status,
+.error {
+  position: absolute;
+}
+
+.status {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.error {
+  inset-block-start: calc(100% + 8px);
+  inset-inline-end: 0;
+  width: 175px;
+  padding: 8px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-paper);
+  font-size: 12px;
+}

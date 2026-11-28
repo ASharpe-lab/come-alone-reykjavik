@@ -1,0 +1,160 @@
+.dialog {
+  font-family: var(--font-popup-text, var(--font-story-text, var(--font-geist-sans))), sans-serif;
+}
+
+.content {
+  position: relative;
+  padding: clamp(38px, 6vw, 50px) clamp(20px, 5vw, 50px);
+}
+
+.brandMark {
+  display: block;
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 34px;
+  font-family: var(--font-popup-marker, var(--font-story-marker)), cursive;
+  font-size: 12px;
+  line-height: 11px;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 32px;
+  height: 4px;
+  background: var(--color-orange);
+  content: "";
+}
+
+.heading {
+  margin-top: 18px;
+  font-family: var(--font-popup-heading, var(--font-story-heading)), Impact, sans-serif;
+  font-size: clamp(42px, 10vw, 54px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.heading:focus {
+  outline: none;
+}
+
+.form {
+  margin-top: 22px;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.error:not(:empty) {
+  margin-top: 12px;
+  color: #9c2819;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.fields {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.field :is(input, select) {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 14px;
+  border: 1px solid rgb(23 21 15 / 50%);
+  background: white;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: normal;
+}
+
+.field input::placeholder {
+  color: #686457;
+}
+
+.field :is(input, select):focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.reset {
+  display: block;
+  margin: 12px 0 12px auto;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-decoration: underline;
+}
+
+.submit {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-accent);
+  box-shadow: 4px 4px 0 var(--color-ink);
+  color: var(--color-ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.signUpSubmit {
+  margin-top: 12px;
+}
+
+.demoNote {
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.accountPrompt {
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.accountLink {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

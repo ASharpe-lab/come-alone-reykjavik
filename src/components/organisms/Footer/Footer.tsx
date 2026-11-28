@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
+import VisitorLogin from "@/components/organisms/VisitorLogin/VisitorLogin";
 import styles from "./Footer.module.css";
 
 export type FooterLink = {
@@ -9,11 +11,19 @@ export type FooterLink = {
 
 type FooterProps = {
   links: FooterLink[];
-  tagline: string;
-  copyright: string;
+  tagline?: string;
+  copyright?: string;
+  showOrganizerLink?: boolean;
+  children?: ReactNode;
 };
 
-export default function Footer({ links, tagline, copyright }: FooterProps) {
+export default function Footer({
+  links,
+  tagline = "Come as you are. Leave knowing the city a little better.",
+  copyright = "Made for Reykjavík · 2025",
+  showOrganizerLink = true,
+  children,
+}: FooterProps) {
   return (
     <footer className={styles.footer}>
       <div className={styles.main}>
@@ -30,6 +40,8 @@ export default function Footer({ links, tagline, copyright }: FooterProps) {
               {link.label}
             </Link>
           ))}
+          {showOrganizerLink && <VisitorLogin organizerTrigger={{ className: styles.organizerLink, label: "For organizers" }} />}
+          {children}
         </nav>
       </div>
 

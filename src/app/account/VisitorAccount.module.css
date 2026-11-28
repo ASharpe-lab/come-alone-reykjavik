@@ -1,0 +1,388 @@
+.account {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: #d8d0b8;
+  color: var(--color-ink);
+  font-family: var(--font-events-text), sans-serif;
+}
+
+.account > footer {
+  min-height: 236px;
+  justify-content: space-between;
+  padding-top: clamp(32px, 5vw, 70px);
+  padding-bottom: 34px;
+}
+
+.calendarShortcut {
+  background: transparent;
+  cursor: pointer;
+}
+
+.calendarShortcut:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.container {
+  width: min(100% - 2 * clamp(20px, 8vw, 118px), 1204px);
+  margin-inline: auto;
+}
+
+.hero {
+  border-bottom: 6px solid var(--color-ink);
+  background: #4056d6;
+  color: var(--color-paper);
+}
+
+.greeting {
+  display: flex;
+  min-height: 289px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding-block: 16px 60px;
+}
+
+.marker {
+  font-family: var(--font-events-marker), cursive;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.greeting .marker {
+  padding-inline-start: 40px;
+  color: white;
+}
+
+.greeting h1,
+.plans h2,
+.eventInfo h3,
+.workshops > div > p:not(.marker) {
+  font-family: var(--font-events-display), Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.greeting h1 {
+  margin-top: 14px;
+  font-size: clamp(52px, 4.85vw, 70px);
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+
+.greeting .nextUp {
+  width: min(100%, 310px);
+  flex: 0 0 auto;
+  padding: 22px 20px;
+  border: 3px solid var(--color-ink);
+  background: rgb(255 255 255 / 8%);
+  box-shadow: 6px 6px 0 var(--color-ink);
+  color: var(--color-paper);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.greeting .nextUpTrigger {
+  display: block;
+  overflow-wrap: anywhere;
+  text-align: left;
+  white-space: normal;
+}
+
+.greeting .nextUpTrigger::after {
+  content: none;
+}
+
+.nextUpTrigger > span {
+  display: block;
+}
+
+.nextUpTrigger:hover .nextTitle {
+  text-decoration: underline;
+}
+
+.nextUpTrigger:focus-visible {
+  outline-color: var(--color-paper);
+}
+
+.nextLabel,
+.category {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nextTitle {
+  margin-block: 6px;
+  font-family: var(--font-events-date), Georgia, serif;
+  font-size: 21px;
+}
+
+.plans {
+  padding-block: 56px 63px;
+}
+
+.plansHeader,
+.workshops {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.accent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accent::before {
+  width: 32px;
+  height: 4px;
+  background: #4056d6;
+  content: "";
+}
+
+.plans h2 {
+  margin-top: 14px;
+  font-size: clamp(32px, 3.2vw, 46px);
+  line-height: 1.05;
+}
+
+.browse {
+  display: inline-flex;
+  min-height: 43px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: 16px;
+  border: 1px solid rgb(23 21 15 / 50%);
+  background: var(--color-paper);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.browse:hover {
+  background: var(--color-accent);
+}
+
+.tabs {
+  display: flex;
+  gap: clamp(8px, 1.8vw, 26px);
+  margin-top: 23px;
+  border-bottom: 1px solid rgb(23 21 15 / 45%);
+}
+
+.tabs button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tabs button[aria-selected="true"] {
+  border-bottom-color: #4056d6;
+  color: #2b3a9e;
+}
+
+.tabs button span {
+  min-width: 16px;
+  padding: 1px 3px;
+  border-radius: 5px;
+  background: #dedbd1;
+  color: var(--color-ink);
+  font-size: 9px;
+  text-align: center;
+}
+
+.eventList {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.emptyEvents {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid rgb(23 21 15 / 45%);
+  background: var(--color-paper);
+}
+
+.eventRow {
+  position: relative;
+  display: grid;
+  min-height: 154px;
+  grid-template-columns: 64px 170px minmax(0, 1fr) auto;
+  transform: rotate(-0.4deg);
+  border: 3px solid var(--color-ink);
+  background: var(--color-paper);
+  box-shadow: 5px 5px 0 var(--color-ink);
+}
+
+.eventRow:nth-child(even) {
+  transform: rotate(0.4deg);
+}
+
+.date {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  align-self: stretch;
+  gap: 1px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.date span {
+  font-family: var(--font-events-date), Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.thumbnail {
+  position: relative;
+  min-height: 148px;
+}
+
+.thumbnail img {
+  object-fit: cover;
+}
+
+.eventInfo {
+  align-self: center;
+  padding: 18px;
+  overflow-wrap: anywhere;
+}
+
+.category {
+  color: #3347bf;
+}
+
+.eventInfo h3 {
+  margin-block: 4px 11px;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.1;
+}
+
+.eventInfo p:not(.category) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.eventInfo img {
+  flex: none;
+}
+
+.eventActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 18px;
+}
+
+.savedBookmark {
+  position: relative;
+}
+
+.eventAction {
+  min-width: 30px;
+  min-height: 30px;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.eventRow:has(.eventAction:hover) h3 {
+  text-decoration: underline;
+}
+
+.workshops {
+  position: relative;
+  min-height: 127px;
+  align-items: center;
+  margin-top: 30px;
+  padding: 25px 30px;
+  border: 4px solid var(--color-ink);
+  background: var(--color-orange);
+  box-shadow: 8px 8px 0 #4056d6;
+}
+
+.workshops .accent::before {
+  background: var(--color-accent);
+}
+
+.workshops > div > p:not(.marker) {
+  margin-top: 10px;
+  font-size: clamp(22px, 2.4vw, 28px);
+}
+
+.workshopButton {
+  background: var(--color-accent);
+}
+
+.workshopButton:hover {
+  background: var(--color-paper);
+}
+
+@media (max-width: 760px) {
+  .greeting {
+    min-height: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-block: 26px 38px;
+  }
+
+  .greeting h1 {
+    line-height: 1.08;
+  }
+
+  .greeting .marker {
+    padding-inline-start: 0;
+  }
+
+  .plans {
+    padding-block: 36px 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .eventRow {
+    grid-template-columns: 38px 66px minmax(0, 1fr) auto;
+  }
+
+  .date span {
+    font-size: 26px;
+  }
+
+  .eventInfo {
+    padding: 12px 8px;
+  }
+
+  .eventActions {
+    padding: 10px 6px;
+  }
+
+  .workshops {
+    padding: 20px;
+  }
+}

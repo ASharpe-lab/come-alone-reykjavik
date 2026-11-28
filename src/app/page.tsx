@@ -23,11 +23,7 @@ export default function Home({ searchParams }: PageProps<"/">) {
         </Suspense>
         <CityStory />
       </main>
-      <Footer
-        links={links}
-        tagline="Come as you are. Leave knowing the city a little better."
-        copyright="Made for Reykjavík · 2025"
-      />
+      <Footer links={links} />
     </>
   );
 }

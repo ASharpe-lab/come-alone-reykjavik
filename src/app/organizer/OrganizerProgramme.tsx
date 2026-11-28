@@ -30,22 +30,17 @@ export default function OrganizerProgramme({ linkToEvents = false, showEvents = 
   showEvents?: boolean;
 }) {
   const headingId = useId();
-  const viewAll = (
-    <>
-      View all events
-      <Image src="/featured-events/details-arrow.svg" alt="" width={16} height={16} />
-    </>
-  );
 
   return (
     <section className={styles.programme} aria-labelledby={headingId}>
       <p className={styles.eyebrow}>Your program</p>
       <div className={styles.sectionHeader}>
         <h2 id={headingId}>Upcoming events</h2>
-        {linkToEvents ? (
-          <Link href="/organizer/events" className={styles.viewAll}>{viewAll}</Link>
-        ) : (
-          <button className={styles.viewAll} type="button" disabled>{viewAll}</button>
+        {linkToEvents && (
+          <Link href="/organizer/events" className={styles.viewAll}>
+            View all events
+            <Image src="/featured-events/details-arrow.svg" alt="" width={16} height={16} />
+          </Link>
         )}
       </div>
       {showEvents && (

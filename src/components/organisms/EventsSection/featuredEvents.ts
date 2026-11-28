@@ -3,7 +3,9 @@ import type { EventCardData } from "@/components/organisms/EventCard/EventCard";
 // Preview listings from the homepage design. The events feed will supply published listings.
 export const featuredEvents: EventCardData[] = [
   {
+    id: "friday-night-at-mengi",
     title: "Friday night at Mengi",
+    startDate: "2025-11-21",
     day: 21,
     weekday: "Fri",
     schedule: "Friday, 20:00–22:30",
@@ -15,7 +17,9 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "A crowd in front of a brightly lit concert stage",
   },
   {
+    id: "clay-cups-and-coffee",
     title: "Clay cups & coffee",
+    startDate: "2025-11-22",
     day: 22,
     weekday: "Sat",
     schedule: "Saturday, 11:00–13:00",
@@ -27,7 +31,9 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "Clay cups and tools beside a pottery wheel",
   },
   {
+    id: "pool-culture-walk",
     title: "Pool culture walk",
+    startDate: "2025-11-23",
     day: 23,
     weekday: "Sun",
     schedule: "Sunday, 10:30–12:00",
@@ -39,7 +45,9 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "Buildings along Reykjavík’s waterfront",
   },
   {
+    id: "small-press-book-club",
     title: "Small press book club",
+    startDate: "2025-11-25",
     day: 25,
     weekday: "Tue",
     schedule: "Tuesday, 18:30–20:00",
@@ -51,6 +59,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "A red corner building in Reykjavík",
   },
   {
+    id: "the-world-of-iceland-music",
     title: "The world of Iceland Music",
     day: 25,
     weekday: "Wed",
@@ -63,6 +72,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "A green music poster with black lettering",
   },
   {
+    id: "live-music-irish-pub",
     title: "Live music Irish pub",
     day: 22,
     weekday: "Sat",
@@ -75,6 +85,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "The wood-paneled interior of the Irishman Pub",
   },
   {
+    id: "melli",
     title: "Mellí",
     day: 27,
     weekday: "Fri",
@@ -87,6 +98,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "A tattooed arm against blue upholstery",
   },
   {
+    id: "story-worlds",
     title: "Story worlds",
     day: 25,
     weekday: "Wed",
@@ -99,6 +111,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "Books arranged on library shelves",
   },
   {
+    id: "straumur",
     title: "Straumur",
     day: 27,
     weekday: "Fri",
@@ -111,11 +124,13 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "A Straumur poster with green lettering over a concrete building",
   },
   {
+    id: "bingo",
     title: "Bingo",
     day: 19,
     weekday: "Sat",
     schedule: "Saturday, 19:30–22:30",
     venue: "Hvanneyri, 311 Borgarbyggð",
+    area: "outside-city-centre",
     category: "Social",
     tags: ["Beginner-friendly", "Come alone"],
     price: "Free",
@@ -123,6 +138,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "Colorful bingo balls with letter markings",
   },
   {
+    id: "raudu-jolin-2026",
     title: "Rauðu Jólin 2026",
     day: 3,
     weekday: "Thu",
@@ -135,6 +151,7 @@ export const featuredEvents: EventCardData[] = [
     imageAlt: "Performers in festive clothing on a Rauðu Jólin poster",
   },
   {
+    id: "moulin-rouge",
     title: "Moulin Rouge! The Musical",
     day: 28,
     weekday: "Sat",

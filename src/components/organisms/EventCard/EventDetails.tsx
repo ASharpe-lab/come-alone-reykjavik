@@ -3,10 +3,12 @@
 import Image from "next/image";
 import { useId, useRef, type ReactNode } from "react";
 import Popup from "@/components/Popup/Popup";
+import EventGoing from "./EventGoing";
 import styles from "./EventCard.module.css";
 
 type EventDetailsProps = {
   event: {
+    id?: string;
     title: string;
     image: string;
     imageAlt?: string;
@@ -18,21 +20,23 @@ type EventDetailsProps = {
     description?: string;
   };
   triggerClassName?: string;
+  triggerLabel?: string;
   children?: ReactNode;
 };
 
-export default function EventDetails({ event, triggerClassName, children }: EventDetailsProps) {
+export default function EventDetails({ event, triggerClassName, triggerLabel, children }: EventDetailsProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const dialogId = useId();
   const titleId = `${dialogId}-title`;
+  const isFree = event.price?.trim().toLowerCase() === "free";
 
   return (
     <>
       <button
         className={triggerClassName ? `${styles.detailsTrigger} ${triggerClassName}` : styles.detailsTrigger}
         type="button"
-        aria-label={`See details for ${event.title}`}
+        aria-label={triggerLabel ?? `See details for ${event.title}`}
         aria-haspopup="dialog"
         aria-controls={dialogId}
         onClick={(click) => {
@@ -80,7 +84,9 @@ export default function EventDetails({ event, triggerClassName, children }: Even
                 {event.tags.map((tag) => <li key={tag}>{tag}</li>)}
               </ul>
             )}
-            {event.price && <p className={styles.detailsPrice}><span>Entry</span> {event.price}</p>}
+            {isFree && event.id ? (
+              <EventGoing eventId={event.id} title={event.title} />
+            ) : event.price && <p className={styles.detailsPrice}><span>Entry</span> {event.price}</p>}
           </div>
         </div>
       </Popup>

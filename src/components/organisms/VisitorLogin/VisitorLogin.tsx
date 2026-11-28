@@ -2,11 +2,14 @@
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Bebas_Neue, Permanent_Marker, Space_Grotesk } from "next/font/google";
 import Popup from "@/components/Popup/Popup";
 import styles from "@/components/Popup/FormPopup.module.css";
+import { addEventToGoing, keepGuestEventPreferences } from "@/lib/visitorEventPreferences";
 import { getDemoSession, setDemoSession, subscribeToDemoSession, type AccountRole } from "./demoSession";
+import type { GoingLoginEvent } from "./GoingLoginProvider";
 
 const headingFont = Bebas_Neue({
   subsets: ["latin"],
@@ -41,15 +44,18 @@ function matchesDemoLogin(details: FormData) {
 type VisitorLoginProps = {
   triggerClassName?: string;
   organizerTrigger?: { className: string; label: ReactNode };
+  goingEvent?: GoingLoginEvent;
+  onDismiss?: () => void;
 };
 
-export default function VisitorLogin({ triggerClassName, organizerTrigger }: VisitorLoginProps) {
+export default function VisitorLogin({ triggerClassName, organizerTrigger, goingEvent, onDismiss }: VisitorLoginProps) {
   const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [role, setRole] = useState<AccountRole>("visitor");
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [goingError, setGoingError] = useState("");
   const visitorSignedIn = useSyncExternalStore(
     subscribeToDemoSession,
     () => Boolean(getDemoSession("visitor")),
@@ -58,13 +64,16 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
   const dialogId = useId();
   const headingId = `${dialogId}-heading`;
   const hintId = `${dialogId}-hint`;
+  const goingHintId = `${dialogId}-going-hint`;
   const isOrganizer = role === "organizer";
 
   useEffect(() => {
-    if (dialogRef.current?.open) {
+    const dialog = dialogRef.current;
+    if (goingEvent && dialog && !dialog.open) dialog.showModal();
+    if (dialog?.open) {
       headingRef.current?.focus({ preventScroll: true });
     }
-  }, [role, isSigningUp]);
+  }, [goingEvent, role, isSigningUp]);
 
   function openLogin(event: MouseEvent<HTMLButtonElement>, nextRole: AccountRole) {
     event.currentTarget.focus({ preventScroll: true });
@@ -86,13 +95,23 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
 
     const email = String(details.get("email") ?? "").trim();
     const username = String(details.get("username") ?? "").trim();
-    const profile = isOrganizer && isSigningUp
+    const profile = isSigningUp
       ? { username: username || email.split("@")[0], email }
       : null;
 
+    if (goingEvent) {
+      try {
+        addEventToGoing(goingEvent.id, profile?.email);
+      } catch {
+        setGoingError("Unable to add this event to Going in this browser.");
+        return;
+      }
+    }
+
+    if (!isOrganizer && profile) keepGuestEventPreferences(profile.email);
     setDemoSession(role, { profile });
     dialogRef.current?.close();
-    if (isOrganizer) router.push("/organizer/events");
+    router.push(isOrganizer ? "/organizer/events" : "/account");
   }
 
   const loginTitle = isOrganizer ? "Organizer login" : "Log in to KOMA";
@@ -101,20 +120,19 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
 
   return (
     <>
-      {triggerClassName && (
+      {triggerClassName && (visitorSignedIn ? (
+        <Link className={triggerClassName} href="/account">My account</Link>
+      ) : (
         <button
           className={triggerClassName}
           type="button"
-          aria-haspopup={visitorSignedIn ? undefined : "dialog"}
-          aria-controls={visitorSignedIn ? undefined : dialogId}
-          onClick={(event) => {
-            if (visitorSignedIn) setDemoSession("visitor", null);
-            else openLogin(event, "visitor");
-          }}
+          aria-haspopup="dialog"
+          aria-controls={dialogId}
+          onClick={(event) => openLogin(event, "visitor")}
         >
-          {visitorSignedIn ? "Log out" : "Log in"}
+          Log in
         </button>
-      )}
+      ))}
       {organizerTrigger && (
         <button
           className={organizerTrigger.className}
@@ -131,10 +149,14 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
         id={dialogId}
         className={`${styles.dialog} ${headingFont.variable} ${markerFont.variable} ${textFont.variable}`}
         aria-labelledby={headingId}
-        aria-describedby={hintId}
+        aria-describedby={goingEvent ? `${goingHintId} ${hintId}` : hintId}
         closeLabel={isSigningUp ? "Close sign-up" : "Close login"}
         onClose={(event) => {
           if (event.currentTarget.open) return;
+          if (onDismiss) {
+            onDismiss();
+            return;
+          }
           event.currentTarget.querySelector("form")?.reset();
           setLoginError(false);
           setIsSigningUp(false);
@@ -146,6 +168,11 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
           <h2 className={styles.heading} id={headingId} ref={headingRef} tabIndex={-1}>
             {isSigningUp ? "Sign up for KOMA" : loginTitle}
           </h2>
+          {goingEvent && (
+            <p className={styles.hint} id={goingHintId}>
+              Log in or sign up to add <strong>{goingEvent.title}</strong> to Going.
+            </p>
+          )}
           {isOrganizer && !isSigningUp && (
             <p className={styles.hint}>Log in to publish and manage your events.</p>
           )}
@@ -159,7 +186,10 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
             className={styles.form}
             method="dialog"
             autoComplete="off"
-            onInput={() => setLoginError(false)}
+            onInput={() => {
+              setLoginError(false);
+              setGoingError("");
+            }}
             onSubmit={handleSubmit}
           >
             <div className={styles.fields}>
@@ -202,6 +232,7 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
                 )}
               </>
             )}
+            {goingError && <p className={styles.error} role="alert">{goingError}</p>}
             <button
               className={isSigningUp || isOrganizer ? `${styles.submit} ${styles.signUpSubmit}` : styles.submit}
               type="submit"
@@ -221,6 +252,7 @@ export default function VisitorLogin({ triggerClassName, organizerTrigger }: Vis
               type="button"
               onClick={() => {
                 setLoginError(false);
+                setGoingError("");
                 setIsSigningUp(!isSigningUp);
               }}
             >

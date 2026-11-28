@@ -1,13 +1,19 @@
 import Image from "next/image";
+import type { EventArea } from "@/lib/eventClassification";
+import EventBookmark from "./EventBookmark";
 import EventDetails from "./EventDetails";
+import eventDetailsData from "./eventDetailsData";
 import styles from "./EventCard.module.css";
 
 export type EventCardData = {
+  id: string;
   title: string;
   day: number;
+  startDate?: string;
   weekday: string;
   schedule: string;
   venue: string;
+  area?: EventArea;
   category?: string;
   tags: string[];
   price: string;
@@ -32,14 +38,7 @@ export default function EventCard({ event }: { event: EventCardData }) {
           <span className={styles.day}>{event.day}</span>{" "}
           <span className={styles.weekday}>{event.weekday}</span>
         </p>
-        <button
-          className={styles.bookmark}
-          type="button"
-          aria-label={`Save ${event.title}`}
-          disabled
-        >
-          <Image src="/featured-events/bookmark.svg" alt="" width={20} height={20} />
-        </button>
+        <EventBookmark className={styles.bookmark} eventId={event.id} title={event.title} />
         {event.category && <p className={styles.category}>{event.category}</p>}
       </div>
       <div className={styles.content}>
@@ -61,20 +60,7 @@ export default function EventCard({ event }: { event: EventCardData }) {
         )}
         <div className={styles.bottom}>
           <p>{event.price}</p>
-          <EventDetails event={{
-            title: event.title,
-            image: event.image,
-            imageAlt: event.imageAlt,
-            dateLabel: `${event.weekday} · ${event.day}`,
-            category: event.category,
-            metadata: [
-              { label: "Time", value: event.schedule, icon: "/featured-events/clock.svg" },
-              { label: "Place", value: event.venue, icon: "/featured-events/location.svg" },
-            ],
-            tags: event.tags,
-            price: event.price,
-            description: event.description,
-          }} />
+          <EventDetails event={eventDetailsData(event)} />
         </div>
       </div>
     </article>

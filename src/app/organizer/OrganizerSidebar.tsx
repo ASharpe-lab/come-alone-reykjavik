@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { setDemoSession } from "@/components/organisms/VisitorLogin/demoSession";
+import { useOrganizationProfile } from "./organizationProfile";
 import styles from "./OrganizerStudio.module.css";
 
 const links = [
@@ -13,12 +14,14 @@ const links = [
 
 export default function OrganizerSidebar() {
   const pathname = usePathname();
+  const { profile } = useOrganizationProfile();
+  const initials = profile.name.split(/\s+/).slice(0, 2).map((word) => Array.from(word)[0]).join("").toUpperCase();
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.organization}>
-        <span className={styles.organizationMark} aria-hidden="true">LS</span>
-        <p>Leir Studio <small>Organizer account</small></p>
+        <span className={styles.organizationMark} aria-hidden="true">{initials}</span>
+        <p>{profile.name} <small>Organizer account</small></p>
       </div>
       <nav className={styles.navigation} aria-label="Organizer Studio">
         {links.map(({ href, label }, index) => {

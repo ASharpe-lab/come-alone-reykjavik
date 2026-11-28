@@ -1,9 +1,7 @@
 import { Bebas_Neue, Permanent_Marker, Space_Grotesk, Tinos } from "next/font/google";
-import EventCard from "@/components/organisms/EventCard/EventCard";
 import EventSearch from "@/components/organisms/EventSearch/EventSearch";
-import EventScroller from "./EventScroller";
-import PublishedEventCards from "./PublishedEventCards";
-import { featuredEvents } from "./featuredEvents";
+import { parseEventFilters } from "@/lib/eventSearch";
+import EventResults from "./EventResults";
 import styles from "./EventsSection.module.css";
 
 const displayFont = Bebas_Neue({
@@ -35,7 +33,7 @@ type EventsSectionProps = {
 };
 
 export default function EventsSection({ filters = {} }: EventsSectionProps) {
-  const { q, when, where } = filters;
+  const search = parseEventFilters(filters);
 
   return (
     <section
@@ -43,11 +41,7 @@ export default function EventsSection({ filters = {} }: EventsSectionProps) {
       id="events"
       aria-labelledby="events-heading"
     >
-      <EventSearch
-        query={typeof q === "string" ? q : undefined}
-        when={typeof when === "string" ? when : undefined}
-        where={typeof where === "string" ? where : undefined}
-      />
+      <EventSearch {...search} />
       <div className={styles.content}>
         <div className={styles.headingRow}>
           <div>
@@ -60,19 +54,7 @@ export default function EventsSection({ filters = {} }: EventsSectionProps) {
             Handpicked happenings around Reykjavík—easy to join, worth leaving home for.
           </p>
         </div>
-        {q !== undefined && (
-          <p className={styles.searchStatus}>Search and filters aren’t connected yet.</p>
-        )}
-        <EventScroller>
-          <ul className={styles.cards}>
-            <PublishedEventCards />
-            {featuredEvents.map((event) => (
-              <li key={event.title}>
-                <EventCard event={event} />
-              </li>
-            ))}
-          </ul>
-        </EventScroller>
+        <EventResults filters={search} />
       </div>
     </section>
   );

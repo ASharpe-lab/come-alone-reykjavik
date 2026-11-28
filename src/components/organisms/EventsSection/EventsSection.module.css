@@ -56,7 +56,15 @@
 }
 
 .searchStatus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
   margin-top: 24px;
+}
+
+.searchStatus a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .scrollerShell {

@@ -48,3 +48,16 @@ All AI output must be reviewed and verified by a team member.
 | 2026-11-27 | Organizer sidebar destinations | Codex | Used the rightmost design for Organization, alongside the Overview and My events designs, and checked navigation between all three. | Pending team review. |
 | 2026-11-27 | Event details pop-ups | Codex | Reused the homepage event dialog for each Organizer Studio event row and populated it with that event’s existing details. | Pending team review. |
 | 2026-11-28 | Create-event pop-up | Codex | Implemented the Figma pop-up with event fields and photo upload, then connected browser-saved events to the homepage cards. | Pending team review. |
+| 2026-11-28 | Organization profile | Codex | Built the profile form from Figma, added a saved view and editing controls, and connected the browser-saved organization name to the Organizer Studio sidebar and greeting. | Pending team review. |
+| 2026-11-28 | Visitor account tabs | Codex | Implemented one visitor account page from Figma with Going, Saved, and Calendar tabs, and connected the visitor login to it. | Pending team review. |
+| 2026-11-28 | Visitor calendar | Codex | Added a month view for Going events, month navigation, a Today shortcut, and links to the existing event details pop-ups. | Pending team review. |
+| 2026-11-28 | Event bookmarks | Codex | Connected homepage bookmarks to the visitor Saved tab, including events created locally in Organizer Studio. | Pending team review. |
+| 2026-11-28 | Free event attendance | Codex | Connected the free-event button to Going and the calendar, and preserved separate visitor bookmarks. | Pending team review. |
+| 2026-11-28 | Visitor login from Going | Codex | Reused the visitor login and sign-up pop-up for guests and resumed the free-event action after sign-in. | Pending team review. |
+| 2026-11-28 | Organizer event tags | Codex | Added optional checkboxes for existing event tags and connected the selected tags to the published event card and details in the website and Figma prototype. | Pending team review. |
+| 2026-11-28 | Organizer event category | Codex | Added a category selector with the existing card categories and connected it to the badges on the published card and details in the website and Figma prototype. | Pending team review. |
+| 2026-11-28 | Organizer account footer | Codex | Reused the KOMA footer on Overview, My events, and Organization and linked it to the homepage sections in the website and Figma prototype. | Pending team review. |
+| 2026-11-28 | Visitor workshop banner | Codex | Connected the red workshop banner to the existing Clay cups & coffee event details popup in the website and Figma prototype. | Pending team review. |
+| 2026-11-28 | Visitor Next up card | Codex | Connected the Next up card to the selected event’s details on the website and to Friday night at Mengi in the Figma prototype. | Pending team review. |
+| 2026-11-28 | Organizer overview counts | Codex | Connected the overview metrics to upcoming published events, Going responses, and saves stored in the browser, scoped to the organizer’s events. | Pending team review. |
+| 2026-11-28 | Event search filters | Codex | Connected keyword, category, date, and area filters to featured and organizer-published event cards and reused the create-event categories. | Pending team review. |

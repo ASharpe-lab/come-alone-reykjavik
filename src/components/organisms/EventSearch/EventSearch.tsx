@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Space_Grotesk } from "next/font/google";
+import { eventAreas, eventCategories } from "@/lib/eventClassification";
+import { eventDates, type EventFilters } from "@/lib/eventSearch";
 import styles from "./EventSearch.module.css";
 
 const searchFont = Space_Grotesk({
@@ -8,19 +10,10 @@ const searchFont = Space_Grotesk({
   variable: "--font-event-search",
 });
 
-type EventSearchProps = {
-  query?: string;
-  when?: string;
-  where?: string;
-};
-
-export default function EventSearch({
-  query = "",
-  when = "this-week",
-  where = "all-reykjavik",
-}: EventSearchProps) {
+export default function EventSearch({ query, category, when, where }: EventFilters) {
   return (
     <form
+      key={JSON.stringify([query, category, when, where])}
       action="/#events"
       method="get"
       role="search"
@@ -38,14 +31,22 @@ export default function EventSearch({
         />
       </label>
 
+      <label className={`${styles.filter} ${styles.category}`}>
+        <span className={styles.label}>Category</span>
+        <span className={styles.select}>
+          <select name="category" defaultValue={category}>
+            <option value="">All categories</option>
+            {eventCategories.map((name) => <option key={name}>{name}</option>)}
+          </select>
+          <Image src="/event-search-chevron.svg" width={10} height={6} alt="" />
+        </span>
+      </label>
+
       <label className={styles.filter}>
         <span className={styles.label}>When</span>
         <span className={styles.select}>
           <select name="when" defaultValue={when}>
-            <option value="this-week">This week</option>
-            <option value="today">Today</option>
-            <option value="this-weekend">This weekend</option>
-            <option value="any-date">Any date</option>
+            {eventDates.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
           </select>
           <Image src="/event-search-chevron.svg" width={10} height={6} alt="" />
         </span>
@@ -55,9 +56,8 @@ export default function EventSearch({
         <span className={styles.label}>Where</span>
         <span className={styles.select}>
           <select name="where" defaultValue={where}>
-            <option value="all-reykjavik">All Reykjavík</option>
-            <option value="city-centre">City centre</option>
-            <option value="outside-city-centre">Outside city centre</option>
+            <option value="">All areas</option>
+            {eventAreas.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
           </select>
           <Image src="/event-search-chevron.svg" width={10} height={6} alt="" />
         </span>

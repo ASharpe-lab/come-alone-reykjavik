@@ -5,11 +5,14 @@ import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import formStyles from "@/components/Popup/FormPopup.module.css";
 import Popup from "@/components/Popup/Popup";
+import { eventAreas, eventCategories } from "@/lib/eventClassification";
 import { defaultEventCover, publishEvent } from "@/lib/publishedEvents";
 import styles from "./CreateEventPopup.module.css";
 import studioStyles from "./OrganizerStudio.module.css";
+import { useOrganizerAccountKey } from "./organizationProfile";
 
 const photoTypes = ["image/jpeg", "image/png", "image/webp"];
+const eventTags = ["Beginner-friendly", "Come alone", "Materials included", "Outside", "Quiet event", "Casual"];
 const maxPhotoSize = 5 * 1024 * 1024;
 const eventTimeZone = "Atlantic/Reykjavik";
 const weekdayFormat = new Intl.DateTimeFormat("en-GB", { weekday: "short", timeZone: eventTimeZone });
@@ -35,6 +38,7 @@ function readPhoto(file: File) {
 
 export default function CreateEventPopup() {
   const router = useRouter();
+  const organizerKey = useOrganizerAccountKey();
   const id = useId();
   const dialog = useRef<HTMLDialogElement>(null);
   const titleInput = useRef<HTMLInputElement>(null);
@@ -63,12 +67,15 @@ export default function CreateEventPopup() {
 
     const fields = new FormData(event.currentTarget);
     const title = String(fields.get("eventTitle")).trim();
+    const category = eventCategories.find((option) => option === fields.get("category"));
+    const area = eventAreas.find((option) => option.value === fields.get("area"))?.value;
     const venue = String(fields.get("location")).trim();
     const description = String(fields.get("description")).trim();
     const startsAt = new Date(`${fields.get("date")}T${fields.get("time")}:00Z`);
     const price = Number(fields.get("price"));
-    if (!title || !venue || !description || Number.isNaN(startsAt.getTime()) || !Number.isSafeInteger(price) || price < 0) {
-      setError("Fill in the event title, date, time, location, description, and price. Use 0 for a free event.");
+    const selectedTags = fields.getAll("tags");
+    if (!title || !category || !venue || !description || Number.isNaN(startsAt.getTime()) || !Number.isSafeInteger(price) || price < 0) {
+      setError("Fill in the event title, category, date, time, location, description, and price. Use 0 for a free event.");
       return;
     }
 
@@ -94,14 +101,18 @@ export default function CreateEventPopup() {
       await publishEvent({
         id: crypto.randomUUID(),
         createdAt: Date.now(),
+        organizerKey,
         title,
+        startDate: startsAt.toISOString().slice(0, 10),
         day: Number(dayFormat.format(startsAt)),
         weekday: weekdayFormat.format(startsAt),
         schedule: scheduleFormat.format(startsAt),
         venue,
+        area,
         description,
+        category,
         price: price === 0 ? "Free" : `${priceFormat.format(price)} ISK`,
-        tags: [],
+        tags: eventTags.filter((tag) => selectedTags.includes(tag)),
         image,
         imageAlt: "",
       });
@@ -161,6 +172,26 @@ export default function CreateEventPopup() {
               </label>
               <div className={styles.columns}>
                 <label className={formStyles.field}>
+                  Category
+                  <select name="category" defaultValue="" required>
+                    <option value="" disabled>Choose a category</option>
+                    {eventCategories.map((category) => (
+                      <option key={category}>{category}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className={formStyles.field}>
+                  Area (optional)
+                  <select name="area" defaultValue="">
+                    <option value="">Choose an area</option>
+                    {eventAreas.map(({ value, label }) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <div className={styles.columns}>
+                <label className={formStyles.field}>
                   Date
                   <input type="date" name="date" required />
                 </label>
@@ -183,6 +214,17 @@ export default function CreateEventPopup() {
                 Event description
                 <textarea className={styles.description} name="description" rows={3} maxLength={2000} required />
               </label>
+              <fieldset className={styles.tagField}>
+                <legend className={formStyles.field}>Event tags (optional)</legend>
+                <div className={styles.tagChoices}>
+                  {eventTags.map((tag) => (
+                    <label className={styles.tagChoice} key={tag}>
+                      <input type="checkbox" name="tags" value={tag} />
+                      {tag}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
               <label className={`${formStyles.field} ${styles.upload}`}>
                 Photo (optional)
                 <input type="file" name="photo" accept={photoTypes.join(",")} aria-describedby={`${id}-photo-help`} onChange={choosePhoto} />
